@@ -1,0 +1,87 @@
+-- compile ts to js and deploy in dist folder 
+npm run gulp
+-- run the ser as dev mode using de nodeon to watch the changes
+npm run dev
+
+
+--- installing sequelize
+npm i -g sequelize-cli@3.0.0
+
+-- listing globals libs 
+npm ls -g --depth=0
+
+-- config using sequelize in the root project folder 
+sequelize init:config --config  src/config/config.json
+
+
+---- sql 
+
+create database orbita_development;
+
+drop  table users 
+
+CREATE TABLE IF NOT EXISTS `users` (
+    `id` INTEGER NOT NULL auto_increment , 
+    `name` VARCHAR(128) NOT NULL, 
+    `email` VARCHAR(128) NOT NULL UNIQUE, 
+    `password` VARCHAR(128) NOT NULL, 
+    `state` CHAR(2) DEFAULT NULL, 
+    `createdAt` DATETIME NOT NULL, 
+    `updatedAt` DATETIME NOT NULL, UNIQUE `users_email_unique` (`email`), 
+    PRIMARY KEY (`id`)) ENGINE=InnoDB;
+
+SHOW INDEX FROM `users` FROM `orbita_development`;
+
+CREATE TABLE IF NOT EXISTS panels (
+    `id` INTEGER NOT NULL auto_increment ,
+    data_provider VARCHAR(200) NOT NULL,
+    installation_date VARCHAR(8) NOT NULL,
+    iinstallation_date date  NULL,
+    system_size FLOAT NOT NULL,
+    zip_code VARCHAR(8) NOT NULL,
+    state VARCHAR(2) NOT NULL,
+    cost FLOAT NOT NULL,
+    PRIMARY KEY (`id`)
+);
+				
+drop table panels;
+truncate table panels;
+select * from panels;
+
+show global variables like 'max_all%';
+
+-- default 67108864
+SET GLOBAL max_allowed_packet=200000000;
+
+source ~/Downloads/sqlify-result-6ecb484a345a4.sql
+source ~/Downloads/sqlify-result-694eb8ee4a044.sql
+
+SHOW COLUMNS FROM panels			
+update panels p set p.iinstallation_date =  STR_TO_DATE(p.installation_date,"%m/%d/%y");
+alter table panels change COLUMN  iinstallation_date installation_date date not null;
+
+ --- Queries
+ 1. -- amount by state
+ select  p.state, count(*)
+ from panels p 
+ -- where p.state =  "NY" 
+ group by 1
+ order by 2 desc 
+ LIMIT 3;
+
+ 3. -- most installations
+ select concat(MONTH(p.installation_date),  "/",  YEAR(p.installation_date)) as date, count(*)  
+ from panels p where p.state =  "NY" 
+ group by 1 
+ order by 2 desc 
+ LIMIT 3;
+
+-- most cost
+2. select  p.cost, p.zip_code, p.data_provider
+ from panels p 
+ where p.state =  "NY" 
+ group by 1,2,3
+ order by 1 desc 
+ LIMIT 3;
+ 
+
