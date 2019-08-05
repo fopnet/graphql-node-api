@@ -1,21 +1,25 @@
-import { makeExecutableSchema } from 'graphql-tools';
-import { merge } from 'lodash';
+import { makeExecutableSchema } from "graphql-tools";
+import { merge } from "lodash";
 
-import { Query } from './query';
-import { Mutation } from './mutation';
+import { Query } from "./query";
+import { Mutation } from "./mutation";
 
-import { panelTypes } from './resources/panel/panel.schema';
-import { tokenTypes } from './resources/token/token.schema';
-import { userTypes } from './resources/user/user.schema';
+import { panelTypes } from "./resources/panel/panel.schema";
+import { tokenTypes } from "./resources/token/token.schema";
+import { userTypes } from "./resources/user/user.schema";
 
-import { panelResolvers } from './resources/panel/panel.resolvers';
-import { tokenResolvers } from './resources/token/token.resolvers';
-import { userResolvers } from './resources/user/user.resolvers';
+import { panelResolvers } from "./resources/panel/panel.resolvers";
+import { tokenResolvers } from "./resources/token/token.resolvers";
+import { userResolvers } from "./resources/user/user.resolvers";
+
+const dataTypes = `
+    scalar Date
+`;
 
 const resolvers = merge(
-    panelResolvers, 
-    tokenResolvers,
-    userResolvers
+  panelResolvers,
+  tokenResolvers,
+  userResolvers,
 );
 
 const SchemaDefinition = `
@@ -26,13 +30,14 @@ const SchemaDefinition = `
 `;
 
 export default makeExecutableSchema({
-    typeDefs: [
-        SchemaDefinition,
-        Query,
-        Mutation,
-        panelTypes,
-        tokenTypes,
-        userTypes
-    ],
-    resolvers
+  typeDefs: [
+    SchemaDefinition,
+    Query,
+    Mutation,
+    dataTypes,
+    panelTypes,
+    tokenTypes,
+    userTypes,
+  ],
+  resolvers,
 });

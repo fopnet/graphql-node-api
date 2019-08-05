@@ -7,6 +7,7 @@ import { PanelInstance } from "../../../models/PanelModel";
 import { handleError, throwError } from "../../../utils/utils";
 import { authResolvers } from "../../composable/auth.resolver";
 import { compose } from "../../composable/composable.resolver";
+import sequelize = require("sequelize");
 
 export const panelResolvers = {
   Query: {
@@ -32,12 +33,29 @@ export const panelResolvers = {
         return context.db.Panel.findById(id, {
           attributes: context.requestedFields.getFields(info, {
             keep: ["id"],
-            exclude: ["comments"],
           }),
         })
           .then((panel: PanelInstance) => {
             throwError(!panel, `Panel with id ${id} not found!`);
             return panel;
+          })
+          .catch(handleError);
+      },
+    ),
+
+    panelsByState: compose(...authResolvers)(
+      (parent, args, context: ResolverContext, info: GraphQLResolveInfo) => {
+        return context.db.Panel.findAll({
+          where: { state: context.authUser.state },
+          attributes: [
+            "state",
+            [sequelize.fn("count", sequelize.col("id")), "amount"],
+          ],
+          group: ["Panel.state"],
+        })
+          .then((result: any) => {
+            throwError(!result, `no results!`);
+            return result.map(grp => grp.dataValues);
           })
           .catch(handleError);
       },
