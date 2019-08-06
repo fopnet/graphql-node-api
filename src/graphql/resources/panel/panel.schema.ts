@@ -19,21 +19,13 @@ const panelTypes = `
         cost: Float!
     }
 
-    interface StringIntMap {
-        key: String!
-        value: Int!
-    }
-
-    scalar ObjectScalar
-     
-    type MapEntry {
-        key: String!
-        value: [ObjectScalar!]
-      }
-
     type PanelByStateResult {
         state:String!
         amount:Int!
+    }
+    type PanelCostByZipcodeResult {
+        zipcode:String!
+        cost:Float!
     }
       
 `;
@@ -41,7 +33,8 @@ const panelTypes = `
 const panelQueries = `
     panels(first: Int, offset: Int): [ Panel! ]!
     panel(id: ID!): Panel
-    panelsByState: [PanelByStateResult]!
+    panelsCountByState: PanelByStateResult
+    panelsCostByZipcode: PanelCostByZipcodeResult
 `;
 
 const panelMutations = `

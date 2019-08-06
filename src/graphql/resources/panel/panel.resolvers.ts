@@ -43,7 +43,7 @@ export const panelResolvers = {
       },
     ),
 
-    panelsByState: compose(...authResolvers)(
+    panelsCountByState: compose(...authResolvers)(
       (parent, args, context: ResolverContext, info: GraphQLResolveInfo) => {
         return context.db.Panel.findAll({
           where: { state: context.authUser.state },
@@ -54,8 +54,26 @@ export const panelResolvers = {
           group: ["Panel.state"],
         })
           .then((result: any) => {
-            throwError(!result, `no results!`);
-            return result.map(grp => grp.dataValues);
+            throwError(!result || result.length === 0, `no results!`);
+            return result[0].dataValues;
+          })
+          .catch(handleError);
+      },
+    ),
+
+    panelsCostByZipcode: compose(...authResolvers)(
+      (parent, args, context: ResolverContext, info: GraphQLResolveInfo) => {
+        return context.db.Panel.findAll({
+          where: { state: context.authUser.state },
+          limit: 1,
+          attributes: ["cost", ["zip_code", "zipcode"]],
+          group: ["Panel.cost", "Panel.zip_code"],
+          order: [["cost", "DESC"]],
+        })
+          .then((result: any) => {
+            console.log("cost by zipcode", result[0].dataValues);
+            throwError(!result || result.length === 0, `no results!`);
+            return result[0].dataValues;
           })
           .catch(handleError);
       },

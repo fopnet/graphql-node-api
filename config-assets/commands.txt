@@ -69,6 +69,14 @@ alter table panels change COLUMN  iinstallation_date installation_date date not 
  order by 2 desc 
  LIMIT 3;
 
+ -- most cost
+2. select  p.cost, p.zip_code, p.data_provider
+ from panels p 
+ where p.state =  "NY" 
+ group by 1,2,3
+ order by 1 desc 
+ LIMIT 3;
+
  3. -- most installations
  select concat(MONTH(p.installation_date),  "/",  YEAR(p.installation_date)) as date, count(*)  
  from panels p where p.state =  "NY" 
@@ -76,12 +84,6 @@ alter table panels change COLUMN  iinstallation_date installation_date date not 
  order by 2 desc 
  LIMIT 3;
 
--- most cost
-2. select  p.cost, p.zip_code, p.data_provider
- from panels p 
- where p.state =  "NY" 
- group by 1,2,3
- order by 1 desc 
- LIMIT 3;
+
  
 
