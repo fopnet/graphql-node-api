@@ -79,7 +79,7 @@ alter table panels change COLUMN  iinstallation_date installation_date date not 
 
  3. -- most installations
  select concat(MONTH(p.installation_date),  "/",  YEAR(p.installation_date)) as date, count(*)  
- from panels p where p.state =  "NY" 
+ from panels p where p.state =  "TX" 
  group by 1 
  order by 2 desc 
  LIMIT 3;

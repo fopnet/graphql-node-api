@@ -27,6 +27,10 @@ const panelTypes = `
         zipcode:String!
         cost:Float!
     }
+    type PanelCountTop3ByMonthResult {
+        month:String!
+        amount:Int!
+    }
       
 `;
 
@@ -35,6 +39,7 @@ const panelQueries = `
     panel(id: ID!): Panel
     panelsCountByState: PanelByStateResult
     panelsCostByZipcode: PanelCostByZipcodeResult
+    panelsCountTop3ByMonth: [PanelCountTop3ByMonthResult!]
 `;
 
 const panelMutations = `

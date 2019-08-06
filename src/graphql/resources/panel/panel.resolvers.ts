@@ -8,6 +8,7 @@ import { handleError, throwError } from "../../../utils/utils";
 import { authResolvers } from "../../composable/auth.resolver";
 import { compose } from "../../composable/composable.resolver";
 import sequelize = require("sequelize");
+import models from "../../../models";
 
 export const panelResolvers = {
   Query: {
@@ -71,9 +72,38 @@ export const panelResolvers = {
           order: [["cost", "DESC"]],
         })
           .then((result: any) => {
-            console.log("cost by zipcode", result[0].dataValues);
+            // console.log("cost by zipcode", result[0].dataValues);
             throwError(!result || result.length === 0, `no results!`);
             return result[0].dataValues;
+          })
+          .catch(handleError);
+      },
+    ),
+
+    panelsCountTop3ByMonth: compose(...authResolvers)(
+      (parent, args, context: ResolverContext, info: GraphQLResolveInfo) => {
+        return context.db.Panel.findAll({
+          where: { state: context.authUser.state },
+          limit: 3,
+          attributes: [
+            [
+              models.sequelize.literal(
+                "concat(MONTH(installation_date) , '/', YEAR(installation_date))",
+              ),
+              "month",
+            ],
+            [sequelize.fn("count", sequelize.col("id")), "amount"],
+          ],
+          group: ["month"],
+          order: [sequelize.literal("2 DESC")],
+        })
+          .then((result: any) => {
+            console.log(
+              "top 3 amounts by month",
+              result.map(grp => grp.dataValues),
+            );
+            throwError(!result || result.length === 0, `no results!`);
+            return result.map(grp => grp.dataValues);
           })
           .catch(handleError);
       },
