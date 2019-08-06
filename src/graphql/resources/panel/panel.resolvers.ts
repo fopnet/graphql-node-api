@@ -108,6 +108,29 @@ export const panelResolvers = {
           .catch(handleError);
       },
     ),
+
+    panelsSystemSizeByYear: compose(...authResolvers)(
+      (parent, args, context: ResolverContext, info: GraphQLResolveInfo) => {
+        return context.db.Panel.findAll({
+          where: { state: context.authUser.state },
+          attributes: [
+            [models.sequelize.literal("YEAR(installation_date)"), "year"],
+            [sequelize.fn("sum", sequelize.col("system_size")), "size"],
+          ],
+          group: ["year"],
+          order: [sequelize.literal("year ASC")],
+        })
+          .then((result: any) => {
+            console.log(
+              "system size by year",
+              result.map(grp => grp.dataValues),
+            );
+            throwError(!result || result.length === 0, `no results!`);
+            return result.map(grp => grp.dataValues);
+          })
+          .catch(handleError);
+      },
+    ),
   },
 
   Mutation: {

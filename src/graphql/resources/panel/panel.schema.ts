@@ -31,6 +31,10 @@ const panelTypes = `
         month:String!
         amount:Int!
     }
+    type PanelSystemSizeByYearResult {
+        year:String!
+        size:Float!
+    }
       
 `;
 
@@ -40,6 +44,7 @@ const panelQueries = `
     panelsCountByState: PanelByStateResult
     panelsCostByZipcode: PanelCostByZipcodeResult
     panelsCountTop3ByMonth: [PanelCountTop3ByMonthResult!]
+    panelsSystemSizeByYear: [PanelSystemSizeByYearResult!]
 `;
 
 const panelMutations = `
