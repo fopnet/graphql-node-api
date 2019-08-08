@@ -438,6 +438,31 @@ describe("User", () => {
               .catch(handleError)
           );
         });
+
+        it("should block operation if token is provided, but the user does not exists anymore", () => {
+          let body = {
+            query: `
+                      mutation {
+                          deleteUser
+                      }
+                  `,
+          };
+
+          return (
+            chai
+              .request(app)
+              .post("/graphql")
+              .set("content-type", "application/json")
+              .set("authorization", `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIn0.2KgzeaJJh7NUr374s7pVc5vaP3xL-tFkJTYmwYYmMX4`)
+              .send(JSON.stringify(body))
+              .then(res => {
+                expect(res.body.errors[0].message).to.equal(
+                  "User does not exists anymore",
+                );
+              })
+              .catch(handleError)
+          );
+        });
       });
     });
   });

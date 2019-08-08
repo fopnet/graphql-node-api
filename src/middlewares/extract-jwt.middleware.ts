@@ -25,7 +25,6 @@ export const extractJwtMiddleware = (): RequestHandler => {
             db.User.findById(decoded.sub, {
                 attributes: ['id', 'email', 'state']
             }).then((user: UserInstance) => {
-
                 if (user) {
                     // AuthUser interface
                     req['context']['authUser'] = {
