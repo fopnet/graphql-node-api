@@ -19,11 +19,16 @@
 									{
 										"key": "Content-Type",
 										"value": "application/graphql"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDgzOTU1Nn0.NWwyCrhgfMbCXcBMu9FZYeIfVWig2O6AhWNg_M5z2bA",
+										"type": "text"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "query {\n\tusers(first: 15, offset: 1) {\n\t\tid\n\t\tname\n\t\temail\n\t\tcreatedAt\n\t\tposts {\n\t\t\tid\n\t\t\ttitle\n\t\t}\n\t}\n}"
+									"raw": "query {\n\tusers(first: 15, offset: 0) {\n\t\tid\n\t\tname\n\t\temail\n\t\tcreatedAt\n\t\tpanels {\n\t\t\tinstallation_date\n\t\t\tstate\n\t\t}\n\t}\n}"
 								},
 								"url": {
 									"raw": "http://localhost:3000/graphql",
@@ -34,6 +39,40 @@
 									"port": "3000",
 									"path": [
 										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query: user",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "query getUserById($id: ID!) {\n\tuser(id: $id) {\n\t\tid\n\t\tname\n\t\temail\n\t\tcreatedAt\n\t\tpanels {\n\t\t\tzip_code\n\t\t\tstate\n\t\t}\n\t}\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql?variables={\"id\": 1}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									],
+									"query": [
+										{
+											"key": "variables",
+											"value": "{\"id\": 1}"
+										}
 									]
 								}
 							},
@@ -56,7 +95,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "query getUsersList($first: Int, $offset: Int) {\n\tusers(first: $first, offset: $offset) {\n\t\tid\n\t\tname\n\t\temail\n\t\tcreatedAt\n\t\tupdatedAt\n\t\tposts {\n\t\t\tid\n\t\t\ttitle\n\t\t\tcreatedAt\n\t\t}\n\t}\n}"
+									"raw": "query getUsersList($first: Int, $offset: Int) {\n\tusers(first: $first, offset: $offset) {\n\t\tid\n\t\tname\n\t\temail\n\t\tcreatedAt\n\t\tupdatedAt\n\t\tstate\n\t}\n}"
 								},
 								"url": {
 									"raw": "http://localhost:3000/graphql?variables={\"first\": 15, \"offset\": 0}",
@@ -72,40 +111,6 @@
 										{
 											"key": "variables",
 											"value": "{\"first\": 15, \"offset\": 0}"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Query: user",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/graphql"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "query getUserById($id: ID!) {\n\tuser(id: $id) {\n\t\tid\n\t\tname\n\t\temail\n\t\tcreatedAt\n\t\tpanels {\n\t\t\tzip_code\n\t\t\tstate\n\t\t}\n\t}\n}"
-								},
-								"url": {
-									"raw": "http://localhost:3000/graphql?variables={\"id\": 2}",
-									"protocol": "http",
-									"host": [
-										"localhost"
-									],
-									"port": "3000",
-									"path": [
-										"graphql"
-									],
-									"query": [
-										{
-											"key": "variables",
-											"value": "{\"id\": 2}"
 										}
 									]
 								}
@@ -157,10 +162,10 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "mutation createNewUser($userCreateInput: UserCreateInput!) {\n\tcreateUser(input: $userCreateInput) {\n\t\tid\n\t\tname\n\t\temail\n\t\tstate\n\t\tcreatedAt\n\t}\n}"
+									"raw": "mutation createNewUser($userCreateInput: UserCreateInput!) {\n\tcreateUser(input: $userCreateInput) {\n\t\tid\n\t\tname\n\t\temail\n\t\tstate\n\t\tcreatedAt\n\t\tupdatedAt\n\t}\n}"
 								},
 								"url": {
-									"raw": "http://localhost:3000/graphql?variables={\"userCreateInput\": {\"name\": \"Felipe\", \"email\": \"fop.net@gmail.com\", \"password\": \"admin\", \"state\": \"RJ\"}}",
+									"raw": "http://localhost:3000/graphql?variables={\"userCreateInput\": {\"name\": \"dani\", \"email\": \"dani@email.com\", \"password\": \"1234\", \"state\": \"NY\"}}",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -172,12 +177,12 @@
 									"query": [
 										{
 											"key": "variables",
-											"value": "{\"userCreateInput\": {\"name\": \"Felipe\", \"email\": \"fop.net@gmail.com\", \"password\": \"admin\", \"state\": \"RJ\"}}"
+											"value": "{\"userCreateInput\": {\"name\": \"Felipe\", \"email\": \"fop.net@gmail.com\", \"password\": \"admin\", \"state\": \"RJ\"}}",
+											"disabled": true
 										},
 										{
 											"key": "variables",
-											"value": "{\"userCreateInput\": {\"name\": \"dani\", \"email\": \"dani@email.com\", \"password\": \"1234\", \"state\": \"NY\"}}",
-											"disabled": true
+											"value": "{\"userCreateInput\": {\"name\": \"dani\", \"email\": \"dani@email.com\", \"password\": \"1234\", \"state\": \"NY\"}}"
 										}
 									]
 								}
@@ -202,7 +207,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "mutation {\n\tlogin(email:\"dany@email.com\",password:\"1234\") {\n\t\ttoken\n\t}\n}"
+									"raw": "mutation {\n\tlogin(email:\"dani@email.com\",password:\"1234\") {\n\t\ttoken\n\t}\n}"
 								},
 								"url": {
 									"raw": "http://localhost:3000/graphql",
@@ -304,14 +309,20 @@
 									{
 										"key": "Content-Type",
 										"value": "application/graphql"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlhdCI6MTU2NTI4MzgyMH0.HqOMSLwg4AqRzFO-Ea-vz3IdhN9pvTB0Qt1Is6dFMJ0",
+										"description": "dani",
+										"type": "text"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "mutation deleteExistingUser($id: ID!) {\n\tdeleteUser(id: $id)\n}"
+									"raw": "mutation  {\n\tdeleteUser \n}"
 								},
 								"url": {
-									"raw": "http://localhost:3000/graphql?variables={\"id\": 1}",
+									"raw": "http://localhost:3000/graphql?",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -323,7 +334,8 @@
 									"query": [
 										{
 											"key": "variables",
-											"value": "{\"id\": 1}"
+											"value": "{\"id\": 2}",
+											"disabled": true
 										}
 									]
 								}
@@ -346,9 +358,17 @@
 										"value": "application/graphql"
 									},
 									{
+										"description": "dany\n",
 										"key": "Authorization",
+										"type": "text",
 										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlhdCI6MTU2NDkzNzgzN30.LJZVfPfpCy_mJKdulMExjHeMgML4zFztKtuVkcEU_Uw",
-										"type": "text"
+										"disabled": true
+									},
+									{
+										"description": "felipe",
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDk0MDA5N30._psx_6o8ggBKafh3BJ7p6YSZbUdjOA1fkv2Qwj6eEBs"
 									}
 								],
 								"body": {
@@ -388,14 +408,14 @@
 										"description": "dani",
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDk0MDA5N30._psx_6o8ggBKafh3BJ7p6YSZbUdjOA1fkv2Qwj6eEBs",
-										"disabled": true
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDk0MDA5N30._psx_6o8ggBKafh3BJ7p6YSZbUdjOA1fkv2Qwj6eEBs"
 									},
 									{
 										"key": "Authorization",
 										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlhdCI6MTU2NDkzNzgzN30.LJZVfPfpCy_mJKdulMExjHeMgML4zFztKtuVkcEU_Uw",
 										"description": "felipe",
-										"type": "text"
+										"type": "text",
+										"disabled": true
 									}
 								],
 								"body": {
@@ -424,7 +444,7 @@
 							"response": []
 						},
 						{
-							"name": "Query:panelsCostByZipcode",
+							"name": "Query: panelsCostByZipcode",
 							"request": {
 								"method": "POST",
 								"header": [
@@ -436,19 +456,19 @@
 										"description": "felipe\n",
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlhdCI6MTU2NDkzNzgzN30.LJZVfPfpCy_mJKdulMExjHeMgML4zFztKtuVkcEU_Uw"
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlhdCI6MTU2NDkzNzgzN30.LJZVfPfpCy_mJKdulMExjHeMgML4zFztKtuVkcEU_Uw",
+										"disabled": true
 									},
 									{
 										"key": "Authorization",
 										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDk0MDA5N30._psx_6o8ggBKafh3BJ7p6YSZbUdjOA1fkv2Qwj6eEBs",
 										"description": "dani\n",
-										"type": "text",
-										"disabled": true
+										"type": "text"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "query {\n\tpanelsCostByZipcode {\n\t\tzipcode\n\t\tcost\n\t}\n}"
+									"raw": "query {\n\tpanelsTopCostByZipcode {\n\t\tzipcode\n\t\tcost\n\t}\n}"
 								},
 								"url": {
 									"raw": "http://localhost:3000/graphql",
@@ -465,7 +485,7 @@
 							"response": []
 						},
 						{
-							"name": "Query:panelsCountTop3ByMonth",
+							"name": "Query: panelsCountTop3ByMonth",
 							"request": {
 								"method": "POST",
 								"header": [
@@ -477,14 +497,14 @@
 										"description": "felipe\n",
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlhdCI6MTU2NDkzNzgzN30.LJZVfPfpCy_mJKdulMExjHeMgML4zFztKtuVkcEU_Uw"
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlhdCI6MTU2NDkzNzgzN30.LJZVfPfpCy_mJKdulMExjHeMgML4zFztKtuVkcEU_Uw",
+										"disabled": true
 									},
 									{
 										"description": "dani\n",
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDk0MDA5N30._psx_6o8ggBKafh3BJ7p6YSZbUdjOA1fkv2Qwj6eEBs",
-										"disabled": true
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDk0MDA5N30._psx_6o8ggBKafh3BJ7p6YSZbUdjOA1fkv2Qwj6eEBs"
 									}
 								],
 								"body": {
@@ -506,7 +526,7 @@
 							"response": []
 						},
 						{
-							"name": "Query:panelsSystemSizeByYear",
+							"name": "Query: panelsSystemSizeByYear",
 							"request": {
 								"method": "POST",
 								"header": [
@@ -518,19 +538,19 @@
 										"description": "felipe\n",
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlhdCI6MTU2NDkzNzgzN30.LJZVfPfpCy_mJKdulMExjHeMgML4zFztKtuVkcEU_Uw"
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlhdCI6MTU2NDkzNzgzN30.LJZVfPfpCy_mJKdulMExjHeMgML4zFztKtuVkcEU_Uw",
+										"disabled": true
 									},
 									{
 										"description": "dani\n",
 										"key": "Authorization",
 										"type": "text",
-										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDk0MDA5N30._psx_6o8ggBKafh3BJ7p6YSZbUdjOA1fkv2Qwj6eEBs",
-										"disabled": true
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDk0MDA5N30._psx_6o8ggBKafh3BJ7p6YSZbUdjOA1fkv2Qwj6eEBs"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "query {\n\tpanelsCountTop3ByMonth {\n\t\tmonth\n\t\tamount\n\t}\n}"
+									"raw": "query {\n\tpanelsSystemSizeByYear {\n\t\tsize\n\t\tyear\n\t}\n}"
 								},
 								"url": {
 									"raw": "http://localhost:3000/graphql",
@@ -554,11 +574,16 @@
 									{
 										"key": "Content-Type",
 										"value": "application/graphql"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlhdCI6MTU2NDkzNzgzN30.LJZVfPfpCy_mJKdulMExjHeMgML4zFztKtuVkcEU_Uw",
+										"type": "text"
 									}
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "query getPostById($id: ID!) {\n\tpost(id: $id) {\n\t\tid\n\t\ttitle\n\t\tcontent\n\t\tauthor {\n\t\t\tname\n\t\t\temail\n\t\t}\n\t\tcomments {\n\t\t\tcomment\n\t\t}\n\t}\n}"
+									"raw": "query getPanelById($id: ID!) {\n\tpanel(id: $id) {\n\t\tdata_provider\n\t    installation_date\n\t    system_size\n\t    zip_code\n\t    state\n\t    cost\n        createAt\n        updatedAt\n\t}\n}"
 								},
 								"url": {
 									"raw": "http://localhost:3000/graphql?variables={\"id\": 1}",
@@ -597,10 +622,10 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "mutation createNewPost($postInput: PostInput!) {\n\tcreatePost(input: $postInput) {\n\t\tid\n\t\ttitle\n\t\tcontent\n\t\tauthor {\n\t\t\tname\n\t\t}\n\t}\n}"
+									"raw": "mutation createNewPanel($panelInput: PanelInput!) {\n\tcreatePanel(input: $panelInput) {\n\t     data_provider\n\t\tinstallation_date\n\t\tsystem_size\n\t\tzip_code\n\t\tstate\n\t\tcost\n\t}\n}"
 								},
 								"url": {
-									"raw": "http://localhost:3000/graphql?variables={\"postInput\": {\"title\": \"dani post\", \"content\": \"Lorem content\", \"photo\": \"some_photo\"}}",
+									"raw": "http://localhost:3000/graphql?variables={\"panelInput\": {\"data_provider\": \"rio de janeiro\", \"system_size\": \"49.9\", \"cost\": \"3.4\", \"installation_date\": \"2019-02-02\", \"zip_code\":  \"123293\", \"state\": \"RJ\"}}",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -612,7 +637,7 @@
 									"query": [
 										{
 											"key": "variables",
-											"value": "{\"postInput\": {\"title\": \"dani post\", \"content\": \"Lorem content\", \"photo\": \"some_photo\"}}"
+											"value": "{\"panelInput\": {\"data_provider\": \"rio de janeiro\", \"system_size\": \"49.9\", \"cost\": \"3.4\", \"installation_date\": \"2019-02-02\", \"zip_code\":  \"123293\", \"state\": \"RJ\"}}"
 										}
 									]
 								}
@@ -626,7 +651,9 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"value": "application/graphql"
+										"name": "Content-Type",
+										"value": "application/graphql",
+										"type": "text"
 									},
 									{
 										"key": "Authorization",
@@ -636,10 +663,10 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "mutation updateExistingPost($id: ID!, $postInput: PostInput!) {\n\tupdatePost(id: $id, input: $postInput) {\n\t\tid\n\t\ttitle\n\t\tcontent\n\t\tauthor {\n\t\t\tname\n\t\t}\n\t}\n}"
+									"raw": "mutation updateExistingPanel($id: ID!, $panelInput: PanelUpdateInput!) {\n\tupdatePanel(id: $id, input: $panelInput) {\n\t  cost\n      system_size\n\t}\n}"
 								},
 								"url": {
-									"raw": "http://localhost:3000/graphql?variables={\"id\": 1, \"postInput\": {\"title\": \"My new post changed\", \"content\": \"Lorem ipsum dolor\", \"photo\": \"some_photo\"}}",
+									"raw": "http://localhost:3000/graphql?variables={ \"id\": \"372428\", \"panelInput\": {\"data_provider\": \"rio de janeiro\", \"system_size\": \"49.9\", \"cost\": \"3.4\", \"installation_date\": \"2019-02-02\", \"zip_code\":  \"123293\", \"state\": \"RJ\"}}",
 									"protocol": "http",
 									"host": [
 										"localhost"
@@ -651,7 +678,7 @@
 									"query": [
 										{
 											"key": "variables",
-											"value": "{\"id\": 1, \"postInput\": {\"title\": \"My new post changed\", \"content\": \"Lorem ipsum dolor\", \"photo\": \"some_photo\"}}"
+											"value": "{ \"id\": \"372428\", \"panelInput\": {\"data_provider\": \"rio de janeiro\", \"system_size\": \"49.9\", \"cost\": \"3.4\", \"installation_date\": \"2019-02-02\", \"zip_code\":  \"123293\", \"state\": \"RJ\"}}"
 										}
 									]
 								}

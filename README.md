@@ -87,7 +87,7 @@ https://youtu.be/hIGMT0mIWdw
     FROM `panels` AS `Panel`
     WHERE `Panel`.`state` = 'TX'
     GROUP BY `month`
-    ORDER BY 2 DESC 
+    ORDER BY 2 DESC
     LIMIT 3;
 
 ## Requisitos obrigatórios
@@ -102,4 +102,6 @@ https://youtu.be/hIGMT0mIWdw
 ## Bônus
 
 - ✅ Implementar testes
+  ![Cobertura de testes](https://github.com/fopnet/graphql-node-api/master/coverage/coverage.jpg "Cobertura de testes")
+
 - ✅ Utilizar TypeScript
