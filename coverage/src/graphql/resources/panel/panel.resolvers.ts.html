@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src/graphql/resources/panel/panel.resolvers.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../../index.html">All files</a> / <a href="index.html">src/graphql/resources/panel</a> panel.resolvers.ts
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>42/42</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>10/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>22/22</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>39/39</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { GraphQLResolveInfo } from "graphql";
+import { Transaction } from "sequelize";
+import { AuthUser } from "../../../interfaces/AuthUserInterface";
+import { DbConnection } from "../../../interfaces/DbConnectionInterface";
+import { ResolverContext } from "../../../interfaces/ResolverContextInterface";
+import { PanelInstance } from "../../../models/PanelModel";
+import { handleError, throwError } from "../../../utils/utils";
+import { authResolvers } from "../../composable/auth.resolver";
+import { compose } from "../../composable/composable.resolver";
+import sequelize = require("sequelize");
+import models from "../../../models";
+&nbsp;
+export const panelResolvers = {
+  Query: {
+    panels: compose(...authResolvers)(
+      (
+        parent,
+        { first = 10, offset = 0 },
+        context: ResolverContext,
+        info: GraphQLResolveInfo,
+      ) =&gt; {
+        return context.db.Panel.findAll({
+          where: { state: context.authUser.state },
+          limit: first,
+          offset: offset,
+          attributes: context.requestedFields.getFields(info, { keep: ["id"] }),
+        }).catch(handleError);
+      },
+    ),
+&nbsp;
+    panel: compose(...authResolvers)(
+      (parent, { id }, context: ResolverContext, info: GraphQLResolveInfo) =&gt; {
+        id = parseInt(id);
+        return context.db.Panel.findById(id, {
+          attributes: context.requestedFields.getFields(info, {
+            keep: ["id"],
+          }),
+        })
+          .then((panel: PanelInstance) =&gt; {
+            throwError(!panel, `Panel with id ${id} not found!`);
+            return panel;
+          })
+          .catch(handleError);
+      },
+    ),
+&nbsp;
+    panelsCountByState: compose(...authResolvers)(
+      (parent, args, context: ResolverContext, info: GraphQLResolveInfo) =&gt; {
+        return context.db.Panel.findAll({
+          where: { state: context.authUser.state },
+          attributes: [
+            "state",
+            [sequelize.fn("count", sequelize.col("id")), "amount"],
+          ],
+          group: ["Panel.state"],
+        })
+          .then((result: any) =&gt; {
+            throwError(!result || result.length === 0, `no results!`);
+            return result[0].dataValues;
+          })
+          .catch(handleError);
+      },
+    ),
+&nbsp;
+    panelsTopCostByZipcode: compose(...authResolvers)(
+      (parent, args, context: ResolverContext, info: GraphQLResolveInfo) =&gt; {
+        return context.db.Panel.findAll({
+          where: { state: context.authUser.state },
+          limit: 1,
+          attributes: ["cost", ["zip_code", "zipcode"]],
+          group: ["Panel.cost", "Panel.zip_code"],
+          order: [["cost", "DESC"]],
+        })
+          .then((result: any) =&gt; {
+            // console.log("cost by zipcode", result[0].dataValues);
+            throwError(!result || result.length === 0, `no results!`);
+            return result[0].dataValues;
+          })
+          .catch(handleError);
+      },
+    ),
+&nbsp;
+    panelsCountTop3ByMonth: compose(...authResolvers)(
+      (parent, args, context: ResolverContext, info: GraphQLResolveInfo) =&gt; {
+        return context.db.Panel.findAll({
+          where: { state: context.authUser.state },
+          limit: 3,
+          attributes: [
+            [
+              models.sequelize.literal(
+                "concat(MONTH(installation_date) , '/', YEAR(installation_date))",
+              ),
+              "month",
+            ],
+            [sequelize.fn("count", sequelize.col("id")), "amount"],
+          ],
+          group: ["month"],
+          order: [sequelize.literal("2 DESC")],
+        })
+          .then((result: any) =&gt; {
+            throwError(!result || result.length === 0, `no results!`);
+            return result.map(grp =&gt; grp.dataValues);
+          })
+          .catch(handleError);
+      },
+    ),
+&nbsp;
+    panelsSystemSizeByYear: compose(...authResolvers)(
+      (parent, args, context: ResolverContext, info: GraphQLResolveInfo) =&gt; {
+        return context.db.Panel.findAll({
+          where: { state: context.authUser.state },
+          attributes: [
+            [models.sequelize.literal("YEAR(installation_date)"), "year"],
+            [sequelize.fn("sum", sequelize.col("system_size")), "size"],
+          ],
+          group: ["year"],
+          order: [sequelize.literal("year ASC")],
+        })
+          .then((result: any) =&gt; {
+            throwError(!result || result.length === 0, `no results!`);
+            return result.map(grp =&gt; grp.dataValues);
+          })
+          .catch(handleError);
+      },
+    ),
+  },
+&nbsp;
+  Mutation: {
+    createPanel: compose(...authResolvers)(
+      (
+        parent,
+        { input },
+        { db, authUser }: { db: DbConnection; authUser: AuthUser },
+        info: GraphQLResolveInfo,
+      ) =&gt; {
+        input.author = authUser.id;
+        return db.sequelize
+          .transaction((t: Transaction) =&gt; {
+            return db.Panel.create(input, { transaction: t });
+          })
+          .catch(handleError);
+      },
+    ),
+&nbsp;
+    updatePanel: compose(...authResolvers)(
+      (
+        parent,
+        { id, input },
+        { db, authUser }: { db: DbConnection; authUser: AuthUser },
+        info: GraphQLResolveInfo,
+      ) =&gt; {
+        id = parseInt(id);
+        return db.sequelize
+          .transaction((t: Transaction) =&gt; {
+            return db.Panel.findById(id).then((panel: PanelInstance) =&gt; {
+              throwError(!panel, `Panel with id ${id} not found!`);
+              throwError(
+                panel.get("state") != authUser.state,
+                `Unauthorized! You can only edit panels by yourself!`,
+              );
+              input.state = authUser.state;
+              return panel.update(input, { transaction: t });
+            });
+          })
+          .catch(handleError);
+      },
+    ),
+&nbsp;
+    deletePanel: compose(...authResolvers)(
+      (
+        parent,
+        { id },
+        { db, authUser }: { db: DbConnection; authUser: AuthUser },
+        info: GraphQLResolveInfo,
+      ) =&gt; {
+        id = parseInt(id);
+        return db.sequelize
+          .transaction((t: Transaction) =&gt; {
+            return db.Panel.findById(id).then((panel: PanelInstance) =&gt; {
+              throwError(!panel, `Panel with id ${id} not found!`);
+              throwError(
+                panel.get("state") != authUser.state,
+                `Unauthorized! You can only delete panels by yourself!`,
+              );
+              return panel.destroy({ transaction: t }).then(panel =&gt; !!panel);
+            });
+          })
+          .catch(handleError);
+      },
+    ),
+  },
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Aug 08 2019 14:48:54 GMT-0300 (-03)
+</div>
+</div>
+<script src="../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../sorter.js"></script>
+</body>
+</html>
