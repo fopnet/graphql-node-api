@@ -62,7 +62,7 @@ export const panelResolvers = {
       },
     ),
 
-    panelsCostByZipcode: compose(...authResolvers)(
+    panelsTopCostByZipcode: compose(...authResolvers)(
       (parent, args, context: ResolverContext, info: GraphQLResolveInfo) => {
         return context.db.Panel.findAll({
           where: { state: context.authUser.state },
@@ -98,10 +98,6 @@ export const panelResolvers = {
           order: [sequelize.literal("2 DESC")],
         })
           .then((result: any) => {
-            console.log(
-              "top 3 amounts by month",
-              result.map(grp => grp.dataValues),
-            );
             throwError(!result || result.length === 0, `no results!`);
             return result.map(grp => grp.dataValues);
           })
@@ -121,10 +117,6 @@ export const panelResolvers = {
           order: [sequelize.literal("year ASC")],
         })
           .then((result: any) => {
-            console.log(
-              "system size by year",
-              result.map(grp => grp.dataValues),
-            );
             throwError(!result || result.length === 0, `no results!`);
             return result.map(grp => grp.dataValues);
           })
@@ -163,10 +155,10 @@ export const panelResolvers = {
             return db.Panel.findById(id).then((panel: PanelInstance) => {
               throwError(!panel, `Panel with id ${id} not found!`);
               throwError(
-                panel.get("state") != authUser.id,
+                panel.get("state") != authUser.state,
                 `Unauthorized! You can only edit panels by yourself!`,
               );
-              input.author = authUser.id;
+              input.state = authUser.state;
               return panel.update(input, { transaction: t });
             });
           })

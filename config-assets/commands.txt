@@ -13,4 +13,25 @@ sequelize init:config --config  src/config/config.json
 npm run dev
 
 
+## ## SQL COMMANDS
+
+SHOW INDEX FROM `users` FROM `orbita_development`;
+show global variables like 'max_all%';
+SHOW COLUMNS FROM panels
+SELECT DATABASE();
+
+-- DML
+drop table panels;
+truncate table panels;
+select \* from panels;
+
+// default 67108864
+SET GLOBAL max_allowed_packet=200000000;
+
+-- Backup 
+mysqldump -u root -p orbita_development > ./dump.sql
+
+-- Restore
+mysql -u root -p orbita_development < ./config-assets/dump.sql
+
 

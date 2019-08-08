@@ -23,8 +23,8 @@ describe("Token", () => {
         it("should return a new valid token", () => {
           let body = {
             query: `
-                            mutation login($email: String!, $password: String!) {
-                                createToken(email: $email, password: $password) {
+                            mutation createToken($email: String!, $password: String!) {
+                                login(email: $email, password: $password) {
                                     token
                                 }
                             }
@@ -42,8 +42,8 @@ describe("Token", () => {
             .send(JSON.stringify(body))
             .then(res => {
               expect(res.body.data).to.have.key("login");
-              expect(res.body.data.createToken).to.have.key("token");
-              expect(res.body.data.createToken.token).to.be.string;
+              expect(res.body.data.login).to.have.key("token");
+              expect(res.body.data.login.token).to.be.string;
               expect(res.body.errors).to.be.undefined;
             })
             .catch(handleError);
@@ -72,7 +72,7 @@ describe("Token", () => {
             .then(res => {
               expect(res.body).to.have.keys(["data", "errors"]);
               expect(res.body.data).to.have.key("login");
-              expect(res.body.data.createToken).to.be.null;
+              expect(res.body.data.login).to.be.null;
               expect(res.body.errors)
                 .to.be.an("array")
                 .with.length(1);
@@ -106,7 +106,7 @@ describe("Token", () => {
             .then(res => {
               expect(res.body).to.have.keys(["data", "errors"]);
               expect(res.body.data).to.have.key("login");
-              expect(res.body.data.createToken).to.be.null;
+              expect(res.body.data.login).to.be.null;
               expect(res.body.errors)
                 .to.be.an("array")
                 .with.length(1);

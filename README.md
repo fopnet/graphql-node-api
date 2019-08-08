@@ -6,20 +6,6 @@ https://youtu.be/hIGMT0mIWdw
 
 ## Database migrations steps
 
-## ## SQL COMMANDS
-
-SHOW INDEX FROM `users` FROM `orbita_development`;
-show global variables like 'max_all%';
-SHOW COLUMNS FROM panels
-
--- DML
-drop table panels;
-truncate table panels;
-select \* from panels;
-
-// default 67108864
-SET GLOBAL max_allowed_packet=200000000;
-
 -- DDL
 
 1. create database orbita_development;

@@ -7,6 +7,7 @@ import { JWT_SECRET } from "../../../src/utils/utils";
 describe("User", () => {
   let token: string;
   let userId: number;
+  const stateRJ = "RJ";
 
   beforeEach(() => {
     return db.Panel.destroy({ where: {} })
@@ -16,7 +17,7 @@ describe("User", () => {
           {
             name: "Felipe Pina",
             email: "fop.net@gmail.com",
-            state: "RJ",
+            state: stateRJ,
             password: "admin",
           },
           {
@@ -46,14 +47,14 @@ describe("User", () => {
         it("should return a list of Users", () => {
           let body = {
             query: `
-                            query {
-                                users {
-                                    name
-                                    email
-                                    state
-                                }
-                            }
-                        `,
+                    query {
+                        users {
+                            name
+                            email
+                            state
+                        }
+                    }
+                `,
           };
 
           return chai
@@ -99,6 +100,7 @@ describe("User", () => {
             .request(app)
             .post("/graphql")
             .set("content-type", "application/json")
+            .set("authorization", `Bearer ${token}`)
             .send(JSON.stringify(body))
             .then(res => {
               const usersList = res.body.data.users;
@@ -108,9 +110,9 @@ describe("User", () => {
                 .of.length(2);
               expect(usersList[0]).to.not.have.keys([
                 "id",
-                "createdAt",
                 "updatedAt",
                 "panels",
+                "password",
               ]);
               expect(usersList[0]).to.have.keys([
                 "name",
@@ -122,7 +124,7 @@ describe("User", () => {
             .catch(handleError);
         });
       });
-/* 
+
       describe("user", () => {
         it("should return a single User", () => {
           let body = {
@@ -133,6 +135,9 @@ describe("User", () => {
                                     name
                                     email
                                     state
+                                    panels {
+                                      state
+                                   }
                                 }
                             }
                         `,
@@ -145,6 +150,7 @@ describe("User", () => {
             .request(app)
             .post("/graphql")
             .set("content-type", "application/json")
+            .set("authorization", `Bearer ${token}`)
             .send(JSON.stringify(body))
             .then(res => {
               const singleUser = res.body.data.user;
@@ -154,6 +160,7 @@ describe("User", () => {
                 "id",
                 "name",
                 "email",
+                "state",
                 "panels",
               ]);
               expect(singleUser.name).to.equal("Felipe Pina");
@@ -184,6 +191,7 @@ describe("User", () => {
             .request(app)
             .post("/graphql")
             .set("content-type", "application/json")
+            .set("authorization", `Bearer ${token}`)
             .send(JSON.stringify(body))
             .then(res => {
               const singleUser = res.body.data.user;
@@ -192,6 +200,7 @@ describe("User", () => {
               expect(singleUser).to.have.key("name");
               expect(singleUser.name).to.equal("Felipe Pina");
               expect(singleUser.email).to.be.undefined;
+              expect(singleUser.state).to.be.undefined;
               expect(singleUser.createdAt).to.be.undefined;
               expect(singleUser.panels).to.be.undefined;
             })
@@ -238,6 +247,7 @@ describe("User", () => {
                                 currentUser {
                                     name
                                     email
+                                    state
                                 }
                             }
                         `,
@@ -252,18 +262,17 @@ describe("User", () => {
             .then(res => {
               const currentUser = res.body.data.currentUser;
               expect(currentUser).to.be.an("object");
-              expect(currentUser).to.have.keys(["name", "email"]);
+              expect(currentUser).to.have.keys(["name", "email", "state"]);
               expect(currentUser.name).to.equal("Felipe Pina");
               expect(currentUser.email).to.equal("fop.net@gmail.com");
+              expect(currentUser.state).to.equal(stateRJ);
             })
             .catch(handleError);
         });
       });
-       */
     });
   });
 
-  /*
   describe("Mutations", () => {
     describe("application/json", () => {
       describe("createUser", () => {
@@ -275,6 +284,7 @@ describe("User", () => {
                                     id
                                     name
                                     email
+                                    state
                                 }
                             }
                         `,
@@ -292,6 +302,7 @@ describe("User", () => {
             .request(app)
             .post("/graphql")
             .set("content-type", "application/json")
+            .set("authorization", `Bearer ${token}`)
             .send(JSON.stringify(body))
             .then(res => {
               const createdUser = res.body.data.createUser;
@@ -412,21 +423,22 @@ describe("User", () => {
                   `,
           };
 
-          return chai
-            .request(app)
-            .post("/graphql")
-            .set("content-type", "application/json")
-            .send(JSON.stringify(body))
-            .then(res => {
-              expect(res.body.errors[0].message).to.equal(
-                "Unauthorized! Token not provided!",
-              );
-            })
-            .catch(handleError);
+          return (
+            chai
+              .request(app)
+              .post("/graphql")
+              .set("content-type", "application/json")
+              // .set("authorization", `Bearer ${token}`)
+              .send(JSON.stringify(body))
+              .then(res => {
+                expect(res.body.errors[0].message).to.equal(
+                  "Unauthorized! Token not provided!",
+                );
+              })
+              .catch(handleError)
+          );
         });
       });
     });
-  
   });
-  */
 });

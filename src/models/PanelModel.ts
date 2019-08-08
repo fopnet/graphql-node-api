@@ -5,7 +5,7 @@ import { ModelsInterface } from "../interfaces/ModelsInterface";
 
 export interface PanelAttributes {
   id?: number;
-  installation_date?: string;
+  installation_date?: Date;
   data_provider?: string;
   system_size?: number;
   zip_code?: string;
@@ -37,7 +37,7 @@ export default (
         allowNull: false,
       },
       installation_date: {
-        type: DataTypes.STRING(8),
+        type: DataTypes.DATEONLY,
         allowNull: false,
       },
       system_size: {
@@ -63,6 +63,7 @@ export default (
     },
     {
       tableName: "panels",
+      timestamps: false,
     },
   );
 

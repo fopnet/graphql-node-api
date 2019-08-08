@@ -2,7 +2,8 @@
   "compilerOptions": {
     "lib": ["esnext"],
     "target": "es6",
-    "module": "commonjs"
+    "module": "commonjs",
+    "moduleResolution": "node"
   },
   "compileOnSave": false,
   "include": ["src/**/*.ts"],
