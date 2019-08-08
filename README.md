@@ -103,6 +103,6 @@ https://youtu.be/hIGMT0mIWdw
 
 - ✅ Implementar testes
 
-  ![Cobertura de testes](https://github.com/fopnet/graphql-node-api/tree/master/coverage/coverage.jpg "Cobertura de testes")
+  ![Cobertura de testes](https://github.com/fopnet/graphql-node-api/tree/master/coverage/coverage.png "Cobertura de testes")
 
 - ✅ Utilizar TypeScript
