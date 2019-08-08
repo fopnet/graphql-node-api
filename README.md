@@ -4,11 +4,14 @@
 
 https://youtu.be/hIGMT0mIWdw
 
-## Database migrations steps
+#### Database migrations steps
 
--- DDL
+## DDL
 
-1. create database orbita_development;
+1. Creating database
+```
+create database orbita_development;
+```
 
 2. Create table command
 ```
