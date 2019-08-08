@@ -1,0 +1,706 @@
+{
+	"info": {
+		"_postman_id": "cf8ba3e8-b409-40fd-9c31-8c1804685913",
+		"name": "Orbita Challenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "orbita-challenge",
+			"item": [
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Query: users: no variables",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "query {\n\tusers(first: 15, offset: 1) {\n\t\tid\n\t\tname\n\t\temail\n\t\tcreatedAt\n\t\tposts {\n\t\t\tid\n\t\t\ttitle\n\t\t}\n\t}\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query: users",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDgzOTU1Nn0.NWwyCrhgfMbCXcBMu9FZYeIfVWig2O6AhWNg_M5z2bA",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "query getUsersList($first: Int, $offset: Int) {\n\tusers(first: $first, offset: $offset) {\n\t\tid\n\t\tname\n\t\temail\n\t\tcreatedAt\n\t\tupdatedAt\n\t\tposts {\n\t\t\tid\n\t\t\ttitle\n\t\t\tcreatedAt\n\t\t}\n\t}\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql?variables={\"first\": 15, \"offset\": 0}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									],
+									"query": [
+										{
+											"key": "variables",
+											"value": "{\"first\": 15, \"offset\": 0}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query: user",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "query getUserById($id: ID!) {\n\tuser(id: $id) {\n\t\tid\n\t\tname\n\t\temail\n\t\tcreatedAt\n\t\tpanels {\n\t\t\tzip_code\n\t\t\tstate\n\t\t}\n\t}\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql?variables={\"id\": 2}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									],
+									"query": [
+										{
+											"key": "variables",
+											"value": "{\"id\": 2}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query currentUser",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDgzOTU1Nn0.NWwyCrhgfMbCXcBMu9FZYeIfVWig2O6AhWNg_M5z2bA"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "query {\n\tcurrentUser {\n\t\tid\n\t\tname\n\t\tposts { \n\t\t\tid\n\t\t\ttitle\n\t\t}\n\t}\t\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mutation: createUser",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "mutation createNewUser($userCreateInput: UserCreateInput!) {\n\tcreateUser(input: $userCreateInput) {\n\t\tid\n\t\tname\n\t\temail\n\t\tstate\n\t\tcreatedAt\n\t}\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql?variables={\"userCreateInput\": {\"name\": \"Felipe\", \"email\": \"fop.net@gmail.com\", \"password\": \"admin\", \"state\": \"RJ\"}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									],
+									"query": [
+										{
+											"key": "variables",
+											"value": "{\"userCreateInput\": {\"name\": \"Felipe\", \"email\": \"fop.net@gmail.com\", \"password\": \"admin\", \"state\": \"RJ\"}}"
+										},
+										{
+											"key": "variables",
+											"value": "{\"userCreateInput\": {\"name\": \"dani\", \"email\": \"dani@email.com\", \"password\": \"1234\", \"state\": \"NY\"}}",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mutation: login",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									},
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "mutation {\n\tlogin(email:\"dany@email.com\",password:\"1234\") {\n\t\ttoken\n\t}\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mutation: updateUser",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDgzOTU1Nn0.NWwyCrhgfMbCXcBMu9FZYeIfVWig2O6AhWNg_M5z2bA",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "mutation updateExistingUser($userUpdateInput: UserUpdateInput!) {\n\tupdateUser(input: $userUpdateInput) {\n\t\tid\n\t\tname\n\t\temail\n\t\tstate\n\t\tcreatedAt\n\t\tupdatedAt\n\t}\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql?variables={\"id\": 1, \"userUpdateInput\": {\"name\": \"Felipe Pina\", \"email\": \"fop.net@gmail.com\", \"state\": \"TX\"}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									],
+									"query": [
+										{
+											"key": "variables",
+											"value": "{\"id\": 1, \"userUpdateInput\": {\"name\": \"Felipe Pina\", \"email\": \"fop.net@gmail.com\", \"state\": \"TX\"}}"
+										},
+										{
+											"key": "variables",
+											"value": "{\"id\": 2, \"userUpdateInput\": {\"name\": \"Dany\", \"email\": \"dani@email.com\", \"state\": \"NY\"}}",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mutation: updateUserPassword",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "mutation updateExistingUserPassword($userUpdatePasswordInput: UserUpdatePasswordInput!) {\n\tupdateUserPassword(input: $userUpdatePasswordInput)\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql?variables={\"id\": 1, \"userUpdatePasswordInput\": {\"password\": \"123456\"}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									],
+									"query": [
+										{
+											"key": "variables",
+											"value": "{\"id\": 1, \"userUpdatePasswordInput\": {\"password\": \"123456\"}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mutation: deleteUser",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "mutation deleteExistingUser($id: ID!) {\n\tdeleteUser(id: $id)\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql?variables={\"id\": 1}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									],
+									"query": [
+										{
+											"key": "variables",
+											"value": "{\"id\": 1}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Panel",
+					"item": [
+						{
+							"name": "Query: panels",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlhdCI6MTU2NDkzNzgzN30.LJZVfPfpCy_mJKdulMExjHeMgML4zFztKtuVkcEU_Uw",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "query getPanelList($first: Int, $offset: Int) {\n\tpanels(first: $first, offset: $offset) {\n\t\tid\n\t\tdata_provider\n\t\tsystem_size\n\t\tcost\n\t\tstate\n\t\tinstallation_date\n\t}\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql?variables={\"first\": 15, \"offset\": 0}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									],
+									"query": [
+										{
+											"key": "variables",
+											"value": "{\"first\": 15, \"offset\": 0}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query: panelsByState",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									},
+									{
+										"description": "dani",
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDk0MDA5N30._psx_6o8ggBKafh3BJ7p6YSZbUdjOA1fkv2Qwj6eEBs",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlhdCI6MTU2NDkzNzgzN30.LJZVfPfpCy_mJKdulMExjHeMgML4zFztKtuVkcEU_Uw",
+										"description": "felipe",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "query {\n  panelsCountByState {\n\tstate\n\tamount\n  }\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql?",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									],
+									"query": [
+										{
+											"key": "variables",
+											"value": "{\"first\": 15, \"offset\": 0}",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query:panelsCostByZipcode",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									},
+									{
+										"description": "felipe\n",
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlhdCI6MTU2NDkzNzgzN30.LJZVfPfpCy_mJKdulMExjHeMgML4zFztKtuVkcEU_Uw"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDk0MDA5N30._psx_6o8ggBKafh3BJ7p6YSZbUdjOA1fkv2Qwj6eEBs",
+										"description": "dani\n",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "query {\n\tpanelsCostByZipcode {\n\t\tzipcode\n\t\tcost\n\t}\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query:panelsCountTop3ByMonth",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									},
+									{
+										"description": "felipe\n",
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlhdCI6MTU2NDkzNzgzN30.LJZVfPfpCy_mJKdulMExjHeMgML4zFztKtuVkcEU_Uw"
+									},
+									{
+										"description": "dani\n",
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDk0MDA5N30._psx_6o8ggBKafh3BJ7p6YSZbUdjOA1fkv2Qwj6eEBs",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "query {\n\tpanelsCountTop3ByMonth {\n\t\tmonth\n\t\tamount\n\t}\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query:panelsSystemSizeByYear",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									},
+									{
+										"description": "felipe\n",
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjIsImlhdCI6MTU2NDkzNzgzN30.LJZVfPfpCy_mJKdulMExjHeMgML4zFztKtuVkcEU_Uw"
+									},
+									{
+										"description": "dani\n",
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDk0MDA5N30._psx_6o8ggBKafh3BJ7p6YSZbUdjOA1fkv2Qwj6eEBs",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "query {\n\tpanelsCountTop3ByMonth {\n\t\tmonth\n\t\tamount\n\t}\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Query: panel",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "query getPostById($id: ID!) {\n\tpost(id: $id) {\n\t\tid\n\t\ttitle\n\t\tcontent\n\t\tauthor {\n\t\t\tname\n\t\t\temail\n\t\t}\n\t\tcomments {\n\t\t\tcomment\n\t\t}\n\t}\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql?variables={\"id\": 1}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									],
+									"query": [
+										{
+											"key": "variables",
+											"value": "{\"id\": 1}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mutation: createPanel",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									},
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDgzOTU1Nn0.NWwyCrhgfMbCXcBMu9FZYeIfVWig2O6AhWNg_M5z2bA"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "mutation createNewPost($postInput: PostInput!) {\n\tcreatePost(input: $postInput) {\n\t\tid\n\t\ttitle\n\t\tcontent\n\t\tauthor {\n\t\t\tname\n\t\t}\n\t}\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql?variables={\"postInput\": {\"title\": \"dani post\", \"content\": \"Lorem content\", \"photo\": \"some_photo\"}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									],
+									"query": [
+										{
+											"key": "variables",
+											"value": "{\"postInput\": {\"title\": \"dani post\", \"content\": \"Lorem content\", \"photo\": \"some_photo\"}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mutation: updatePanel",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDgzOTU1Nn0.NWwyCrhgfMbCXcBMu9FZYeIfVWig2O6AhWNg_M5z2bA",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "mutation updateExistingPost($id: ID!, $postInput: PostInput!) {\n\tupdatePost(id: $id, input: $postInput) {\n\t\tid\n\t\ttitle\n\t\tcontent\n\t\tauthor {\n\t\t\tname\n\t\t}\n\t}\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql?variables={\"id\": 1, \"postInput\": {\"title\": \"My new post changed\", \"content\": \"Lorem ipsum dolor\", \"photo\": \"some_photo\"}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									],
+									"query": [
+										{
+											"key": "variables",
+											"value": "{\"id\": 1, \"postInput\": {\"title\": \"My new post changed\", \"content\": \"Lorem ipsum dolor\", \"photo\": \"some_photo\"}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Mutation: deletePanel",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/graphql"
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImlhdCI6MTU2NDgzOTU1Nn0.NWwyCrhgfMbCXcBMu9FZYeIfVWig2O6AhWNg_M5z2bA",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "mutation deleteExistingPost($id: ID!) {\n\tdeletePost(id: $id)\n}"
+								},
+								"url": {
+									"raw": "http://localhost:3000/graphql?variables={\"id\": 2}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"graphql"
+									],
+									"query": [
+										{
+											"key": "variables",
+											"value": "{\"id\": 2}"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}
