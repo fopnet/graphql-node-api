@@ -11,6 +11,7 @@ https://youtu.be/hIGMT0mIWdw
 1. create database orbita_development;
 
 2. Create table command
+```
    CREATE TABLE IF NOT EXISTS `users` (
    `id` INTEGER NOT NULL auto_increment ,
    `name` VARCHAR(128) NOT NULL,
@@ -20,8 +21,9 @@ https://youtu.be/hIGMT0mIWdw
    `createdAt` DATETIME NOT NULL,
    `updatedAt` DATETIME NOT NULL, UNIQUE `users_email_unique` (`email`),
    PRIMARY KEY (`id`)) ENGINE=InnoDB;
-
+```
 3. Forcing add new date type column to installation_date
+```
    CREATE TABLE IF NOT EXISTS panels (
    `id` INTEGER NOT NULL auto_increment ,
    data_provider VARCHAR(200) NOT NULL,
