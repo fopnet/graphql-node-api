@@ -102,6 +102,7 @@ https://youtu.be/hIGMT0mIWdw
 ## Bônus
 
 - ✅ Implementar testes
-  ![Cobertura de testes](https://github.com/fopnet/graphql-node-api/master/coverage/coverage.jpg "Cobertura de testes")
+
+  ![Cobertura de testes](https://github.com/fopnet/graphql-node-api/tree/master/coverage/coverage.jpg "Cobertura de testes")
 
 - ✅ Utilizar TypeScript
