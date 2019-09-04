@@ -10,6 +10,7 @@ export class UserLoader {
   ): Promise<UserInstance[]> {
     let ids: number[] = params.map(param => param.key);
 
+    
     return Promise.resolve(
       User.findAll({
         where: { id: { $in: ids } },

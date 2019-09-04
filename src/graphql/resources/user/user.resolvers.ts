@@ -28,15 +28,14 @@ export const userResolvers = {
       },
       info: GraphQLResolveInfo,
     ) => {
-      return panelLoader.loadMany([user.get("state")]);
-      /*
+      // return panelLoader.load({ key: user.get("state"), info });
+      // so funciona se for OneToOne, ou seja se o panels fosse um objeto ex: Post-> autor
       return db.Panel.findAll({
         where: { state: user.get("state") },
         limit: first,
         offset: offset,
         attributes: requestedFields.getFields(info, { keep: ["id"] }),
       }).catch(handleError);
-      */
     },
   },
 
