@@ -1,3 +1,4 @@
+import { DataLoaders } from "./../../../interfaces/DataLoadersInterface";
 import { ComposableResolver } from "./../../composable/composable.resolver";
 import { GraphQLResolveInfo } from "graphql";
 import { Transaction } from "sequelize";
@@ -19,15 +20,23 @@ export const userResolvers = {
       {
         db,
         requestedFields,
-      }: { db: DbConnection; requestedFields: RequestedFields },
+        dataloaders: { panelLoader },
+      }: {
+        db: DbConnection;
+        requestedFields: RequestedFields;
+        dataloaders: DataLoaders;
+      },
       info: GraphQLResolveInfo,
     ) => {
+      return panelLoader.loadMany([user.get("state")]);
+      /*
       return db.Panel.findAll({
         where: { state: user.get("state") },
         limit: first,
         offset: offset,
         attributes: requestedFields.getFields(info, { keep: ["id"] }),
       }).catch(handleError);
+      */
     },
   },
 
