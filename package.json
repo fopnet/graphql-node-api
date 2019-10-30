@@ -56,7 +56,7 @@
     "lodash": "4.17.4",
     "moment": "^2.24.0",
     "mysql2": "1.4.2",
-    "sequelize": "4.13.10"
+    "sequelize": "5.15.1"
   },
   "directories": {
     "test": "test"
